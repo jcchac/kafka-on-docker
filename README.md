@@ -17,7 +17,7 @@ An `entrypoint.sh` is included to set up the Zookeeper connection accordingly, a
 
 A different approach could be to use an existing image for the `zookeeper` service:
 
-#### **`docker-compose.yml`**
+#### `docker-compose.yml`
 ``` yml
 version: '3.8'
 
