@@ -1,10 +1,21 @@
 # Kafka on Docker
 
-This repository provides a way to run Kafka on Docker for development purposes. 
+This repository provides a way to run Apache Kafka on Docker. 
 
-The docker-compose file sets up two separated services: `kafka` and `zookeeper`. Both services make use of the same image, built from the `Dockerfile` and containing a regular installation of Kafka, that includes Zookeeper. The image is available on [Docker Hub](https://hub.docker.com/repository/docker/jcchac/kafka).
+Two services are set up in the `docker-compose.yml` file: `kafka` and `zookeeper`. 
 
-A different approach could be to use an existing image for creating the `zookeeper` container:
+Both services make use of the same image, built from the `Dockerfile` file and containing a regular installation of Kafka, that includes Zookeeper. The image is available on [Docker Hub](https://hub.docker.com/repository/docker/jcchac/kafka).
+
+An `entrypoint.sh` is included to set up the Zookeeper connection accordingly, and can be updated in the future to stablish further configuration for both Kafka and Zookeeper services.
+
+### Pre-requisites
+
+- Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
+- Modify `.env` if necessary 
+
+### Alternative approach
+
+A different approach could be to use an existing image for the `zookeeper` service:
 
 #### **`docker-compose.yml`**
 ``` yml
@@ -31,13 +42,6 @@ services:
     depends_on:
       - zookeeper
 ```
-
-An `entrypoint.sh` is included to set up the Zookeeper connection in the `server.properties` file, and can be updated in the future to provide configuration for both Kafka and Zookeeper services.
-
-### Pre-requisites
-
-- Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
-- Modify `.env` if necessary 
 
 ## Start the Kafka environment
 
