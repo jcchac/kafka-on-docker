@@ -1,0 +1,25 @@
+version: '3.8'
+
+services: 
+    zookeeper:
+        image: kafka-zookeeper
+        build: 
+            context: .
+            args:
+                - kafka_version=${KAFKA_VERSION}
+                - scala_version=${SCALA_VERSION}
+                - kafka_home=${KAFKA_HOME}
+        entrypoint: entrypoint.sh
+        ports:
+            - "2181:2181"
+        command: zookeeper-server-start.sh ${KAFKA_HOME}/config/zookeeper.properties
+    kafka:
+        image: kafka-zookeeper
+        environment:
+            - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+        entrypoint: entrypoint.sh
+        ports:
+            - "9092:9092"
+        command: kafka-server-start.sh ${KAFKA_HOME}/config/server.properties
+        depends_on:
+            - zookeeper
